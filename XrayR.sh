@@ -386,10 +386,12 @@ show_menu() {
  ${green}10.${plain} 取消 XrayR 开机自启
 ————————————————
  ${green}11.${plain} 一键安装 bbr (最新内核)
+ ${green}12.${plain} 查看 XrayR 版本 
+ ${green}13.${plain} 升级维护脚本
  "
- #${green}12.${plain} 查看 XrayR 版本 后续更新可加入上方字符串中
+ #后续更新可加入上方字符串中
     show_status
-    echo && read -p "请输入选择 [0-12]: " num
+    echo && read -p "请输入选择 [0-13]: " num
 
     case "${num}" in
         0) exit 0
@@ -417,6 +419,8 @@ show_menu() {
         11) install_bbr
         ;;
         12) check_install && show_XrayR_version
+        ;;
+        13) update_shell
         ;;
         *) echo -e "${red}请输入正确的数字 [0-12]${plain}"
         ;;
@@ -449,6 +453,8 @@ if [[ $# > 0 ]]; then
         "uninstall") check_install 0 && uninstall 0
         ;;
         "version") check_install 0 && show_XrayR_version 0
+        ;;
+        "update_shell") update_shell
         ;;
         *) show_usage
     esac
