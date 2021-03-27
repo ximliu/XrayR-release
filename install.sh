@@ -119,17 +119,21 @@ install_XrayR() {
 
     unzip XrayR-linux-64.zip
     rm XrayR-linux-64.zip -f
-    #cd XrayR
     chmod +x XrayR
     mkdir /etc/XrayR/ -p
     rm /etc/systemd/system/XrayR.service -f
-	file="https://github.com/XrayR-project/XrayR-release/raw/master/XrayR.service"
-	wget -N --no-check-certificate -O /etc/systemd/system/XrayR.service ${file}
+    file="https://github.com/XrayR-project/XrayR-release/raw/master/XrayR.service"
+    wget -N --no-check-certificate -O /etc/systemd/system/XrayR.service ${file}
     #cp -f XrayR.service /etc/systemd/system/
     systemctl daemon-reload
     systemctl stop XrayR
     systemctl enable XrayR
     echo -e "${green}XrayR v${last_version}${plain} 安装完成，已设置开机自启"
+    cp geoip.dat /etc/XrayR/
+    cp geosite.dat /etc/XrayR/ 
+    if [[! -f /etc/XrayR/dns.json]]; then
+        cp dns.json etc/XrayR/
+    fi
     if [[ ! -f /etc/XrayR/config.yml ]]; then
         cp config.yml /etc/XrayR/
         echo -e ""
