@@ -128,12 +128,10 @@ install_XrayR() {
     systemctl daemon-reload
     systemctl stop XrayR
     systemctl enable XrayR
-    echo -e "${green}XrayR v${last_version}${plain} 安装完成，已设置开机自启"
+    echo -e "${green}XrayR ${last_version}${plain} 安装完成，已设置开机自启"
     cp geoip.dat /etc/XrayR/
     cp geosite.dat /etc/XrayR/ 
-    if [[! -f /etc/XrayR/dns.json]]; then
-        cp dns.json etc/XrayR/
-    fi
+
     if [[ ! -f /etc/XrayR/config.yml ]]; then
         cp config.yml /etc/XrayR/
         echo -e ""
@@ -150,12 +148,10 @@ install_XrayR() {
         fi
     fi
 
-    #if [[ ! -f /etc/XrayR/blockList ]]; then
-    #    cp blockList /etc/XrayR/
-    #fi
-    #if [[ ! -f /etc/XrayR/dns.yml ]]; then
-    #    cp dns.yml /etc/XrayR/
-    #fi
+    if [[ ! -f /etc/XrayR/dns.json ]]; then
+        cp dns.json /etc/XrayR/
+    fi
+    
     curl -o /usr/bin/XrayR -Ls https://raw.githubusercontent.com/XrayR-project/XrayR-release/master/XrayR.sh
     chmod +x /usr/bin/XrayR
     #curl -o /usr/bin/XrayR-tool -Ls https://raw.githubusercontent.com/XrayR-project/XrayR/master/XrayR-tool
