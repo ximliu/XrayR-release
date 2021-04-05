@@ -37,7 +37,7 @@ Log:
   Level: debug # Log level: none, error, warning, info, debug 
   AccessPath: # ./access.Log
   ErrorPath: # ./error.log
-DnsConfigPath: # ./dns.json Path to dns config
+DnsConfigPath: # ./dns.json  Path to dns config
 Nodes:
   -
     PanelType: "SSpanel" # Panel type: SSpanel
@@ -46,6 +46,7 @@ Nodes:
       ApiKey: "123"
       NodeID: 41
       NodeType: V2ray # Node type: V2ray, Shadowsocks, Trojan
+      Timeout: 30 # Timeout for the api request, Default is 5 sec
       EnableVless: false # Enable Vless for V2ray Type, Prefer remote configuration
       EnableXTLS: false # Enable XTLS for V2ray and Trojan， Prefer remote configuration
     ControllerConfig:
@@ -63,12 +64,13 @@ Nodes:
           ALICLOUD_ACCESS_KEY: aaa
           ALICLOUD_SECRET_KEY: bbb
   -
-    PanelType: "SSpanel" # Panel type: SSpanel
+    PanelType: "V2board" # Panel type: SSpanel, V2board
     ApiConfig:
-      ApiHost: "http://sspanel.com"
+      ApiHost: "http://V2board.com"
       ApiKey: "123"
       NodeID: 42
       NodeType: Trojan # Node type: V2ray, Shadowsocks, Trojan
+      Timeout: 30 # Timeout for the api request
       EnableVless: false # Enable Vless for V2ray Type, Prefer remote configuration
       EnableXTLS: false # Enable XTLS for V2ray and Trojan， Prefer remote configuration
     ControllerConfig:
