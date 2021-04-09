@@ -5,9 +5,9 @@ A Xray backend framework that can easily support many panels.
 
 Find the source code here: [XrayR-project/XrayR](https://github.com/XrayR-project/XrayR)
 
-# 面板节点设置
+# 详细使用教程
 
-[教程](https://github.com/XrayR-project/XrayR/blob/master/README.md)
+[教程](https://crackair.gitbook.io/xrayr-project/)
 
 # 一键安装
 
