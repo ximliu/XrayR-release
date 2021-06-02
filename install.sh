@@ -31,6 +31,19 @@ else
     echo -e "${red}未检测到系统版本，请联系脚本作者！${plain}\n" && exit 1
 fi
 
+arch=$(arch)
+
+if [[ $arch == "x86_64" || $arch == "x64" || $arch == "amd64" ]]; then
+  arch="64"
+elif [[ $arch == "aarch64" || $arch == "arm64" ]]; then
+  arch="arm64-v8a"
+else
+  arch="64"
+  echo -e "${red}检测架构失败，使用默认架构: ${arch}${plain}"
+fi
+
+echo "架构: ${arch}"
+
 if [ "$(getconf WORD_BIT)" != '32' ] && [ "$(getconf LONG_BIT)" != '64' ] ; then
     echo "本软件不支持 32 位系统(x86)，请使用 64 位系统(x86_64)，如果检测有误，请联系作者"
     exit 2
@@ -101,24 +114,24 @@ install_XrayR() {
             exit 1
         fi
         echo -e "检测到 XrayR 最新版本：${last_version}，开始安装"
-        wget -N --no-check-certificate -O /usr/local/XrayR/XrayR-linux-64.zip https://github.com/XrayR-project/XrayR/releases/download/${last_version}/XrayR-linux-64.zip
+        wget -N --no-check-certificate -O /usr/local/XrayR/XrayR-linux.zip https://github.com/XrayR-project/XrayR/releases/download/${last_version}/XrayR-linux-${arch}.zip
         if [[ $? -ne 0 ]]; then
             echo -e "${red}下载 XrayR 失败，请确保你的服务器能够下载 Github 的文件${plain}"
             exit 1
         fi
     else
         last_version=$1
-        url="https://github.com/XrayR-project/XrayR/releases/download/${last_version}/XrayR-linux-64.zip"
+        url="https://github.com/XrayR-project/XrayR/releases/download/${last_version}/XrayR-linux-${arch}.zip"
         echo -e "开始安装 XrayR v$1"
-        wget -N --no-check-certificate -O /usr/local/XrayR/XrayR-linux-64.zip ${url}
+        wget -N --no-check-certificate -O /usr/local/XrayR/XrayR-linux.zip ${url}
         if [[ $? -ne 0 ]]; then
             echo -e "${red}下载 XrayR v$1 失败，请确保此版本存在${plain}"
             exit 1
         fi
     fi
 
-    unzip XrayR-linux-64.zip
-    rm XrayR-linux-64.zip -f
+    unzip XrayR-linux.zip
+    rm XrayR-linux.zip -f
     chmod +x XrayR
     mkdir /etc/XrayR/ -p
     rm /etc/systemd/system/XrayR.service -f
@@ -154,10 +167,12 @@ install_XrayR() {
     
     curl -o /usr/bin/XrayR -Ls https://raw.githubusercontent.com/XrayR-project/XrayR-release/master/XrayR.sh
     chmod +x /usr/bin/XrayR
+    ln -s /usr/bin/XrayR /usr/bin/xrayr # 小写兼容
+    chmod +x /usr/bin/xrayr
     #curl -o /usr/bin/XrayR-tool -Ls https://raw.githubusercontent.com/XrayR-project/XrayR/master/XrayR-tool
     #chmod +x /usr/bin/XrayR-tool
     echo -e ""
-    echo "XrayR 管理脚本使用方法: "
+    echo "XrayR 管理脚本使用方法 (兼容使用xrayr执行，大小写不敏感): "
     echo "------------------------------------------"
     echo "XrayR                    - 显示管理菜单 (功能更多)"
     echo "XrayR start              - 启动 XrayR"
