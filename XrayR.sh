@@ -120,7 +120,25 @@ update() {
 }
 
 config() {
-    cat /etc/XrayR/config.yml
+    echo "XrayR在修改配置后会自动尝试重启"
+    vi /etc/XrayR/config.yml
+    sleep 2
+    check_status
+    case $? in
+        0)
+            echo -e "XrayR状态: ${green}已运行${plain}"
+            ;;
+        1)
+            echo -e "检测到您未启动XrayR或XrayR自动重启失败，是否查看日志？[Y/n]" && echo
+            read -e -p "(默认: y):" yn
+            [[ -z ${yn} ]] && yn="y"
+            if [[ ${yn} == [Yy] ]]; then
+               show_log
+            fi
+            ;;
+        2)
+            echo -e "XrayR状态: ${red}未安装${plain}"
+    esac
 }
 
 uninstall() {
@@ -370,7 +388,7 @@ show_menu() {
     echo -e "
   ${green}XrayR 后端管理脚本，${plain}${red}不适用于docker${plain}
 --- https://github.com/XrayR-project/XrayR ---
-  ${green}0.${plain} 退出脚本
+  ${green}0.${plain} 修改配置
 ————————————————
   ${green}1.${plain} 安装 XrayR
   ${green}2.${plain} 更新 XrayR
@@ -394,7 +412,7 @@ show_menu() {
     echo && read -p "请输入选择 [0-13]: " num
 
     case "${num}" in
-        0) exit 0
+        0) config
         ;;
         1) check_uninstall && install
         ;;

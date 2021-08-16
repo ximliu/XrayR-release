@@ -14,9 +14,7 @@ LimitNOFILE=999999
 WorkingDirectory=/usr/local/XrayR/
 ExecStart=/usr/local/XrayR/XrayR -config /etc/XrayR/config.yml
 Restart=on-failure
-RestartSec=5
-StartLimitInterval=100s
-StartLimitBurst=3
+RestartSec=10
 
 [Install]
 WantedBy=multi-user.target
