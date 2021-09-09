@@ -165,13 +165,16 @@ install_XrayR() {
     if [[ ! -f /etc/XrayR/dns.json ]]; then
         cp dns.json /etc/XrayR/
     fi
-    
+    if [[ ! -f /etc/XrayR/route.json ]]; then
+        cp route.json /etc/XrayR/
+    fi
+    if [[ ! -f /etc/XrayR/custom_outbound.json ]]; then
+        cp custom_outbound.json /etc/XrayR/
+    fi
     curl -o /usr/bin/XrayR -Ls https://raw.githubusercontent.com/XrayR-project/XrayR-release/master/XrayR.sh
     chmod +x /usr/bin/XrayR
     ln -s /usr/bin/XrayR /usr/bin/xrayr # 小写兼容
     chmod +x /usr/bin/xrayr
-    #curl -o /usr/bin/XrayR-tool -Ls https://raw.githubusercontent.com/XrayR-project/XrayR/master/XrayR-tool
-    #chmod +x /usr/bin/XrayR-tool
     echo -e ""
     echo "XrayR 管理脚本使用方法 (兼容使用xrayr执行，大小写不敏感): "
     echo "------------------------------------------"
