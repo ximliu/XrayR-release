@@ -35,9 +35,9 @@ chmod +x /usr/local/bin/docker-compose
 ```
 Log:
   Level: none # Log level: none, error, warning, info, debug 
-  AccessPath: # ./access.Log
-  ErrorPath: # ./error.log
-DnsConfigPath: # ./dns.json Path to dns config
+  AccessPath: # /etc/XrayR/access.Log
+  ErrorPath: # /etc/XrayR/error.log
+DnsConfigPath: # /etc/XrayR/dns.json Path to dns config
 ConnetionConfig:
   Handshake: 4 # Handshake time limit, Second
   ConnIdle: 10 # Connection idle time limit, Second
@@ -57,7 +57,7 @@ Nodes:
       EnableXTLS: false # Enable XTLS for V2ray and Trojan
       SpeedLimit: 0 # Mbps, Local settings will replace remote settings, 0 means disable
       DeviceLimit: 0 # Local settings will replace remote settings, 0 means disable
-      RuleListPath: # ./rulelist Path to local rulelist file
+      RuleListPath: # /etc/XrayR/rulelist Path to local rulelist file
     ControllerConfig:
       ListenIP: 0.0.0.0 # IP address you want to listen
       SendIP: 0.0.0.0 # IP address you want to send pacakage
@@ -75,8 +75,8 @@ Nodes:
       CertConfig:
         CertMode: dns # Option about how to get certificate: none, file, http, dns. Choose "none" will forcedly disable the tls config.
         CertDomain: "node1.test.com" # Domain to cert
-        CertFile: ./cert/node1.test.com.cert # Provided if the CertMode is file
-        KeyFile: ./cert/node1.test.com.key
+        CertFile: /etc/XrayR/cert/node1.test.com.cert # Provided if the CertMode is file
+        KeyFile: /etc/XrayR/cert/node1.test.com.key
         Provider: alidns # DNS cert provider, Get the full support list here: https://go-acme.github.io/lego/dns/
         Email: test@me.com
         DNSEnv: # DNS ENV option used by DNS provider
@@ -101,8 +101,8 @@ Nodes:
   #     CertConfig:
   #       CertMode: dns # Option about how to get certificate: none, file, http, dns
   #       CertDomain: "node1.test.com" # Domain to cert
-  #       CertFile: ./cert/node1.test.com.cert # Provided if the CertMode is file
-  #       KeyFile: ./cert/node1.test.com.pem
+  #       CertFile: /etc/XrayR/cert/node1.test.com.cert # Provided if the CertMode is file
+  #       KeyFile: /etc/XrayR/cert/node1.test.com.pem
   #       Provider: alidns # DNS cert provider, Get the full support list here: https://go-acme.github.io/lego/dns/
   #       Email: test@me.com
   #       DNSEnv: # DNS ENV option used by DNS provider
